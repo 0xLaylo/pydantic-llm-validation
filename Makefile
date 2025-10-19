@@ -2,6 +2,10 @@
 sources = pydantic tests docs/plugins release/
 NUM_THREADS?=1
 
+# FIXME: temporary workaround for importing pydantic-core into the uv workspace
+# while working out proper workflow.
+UV_NO_SYNC=1
+
 .PHONY: .uv  ## Check that uv is installed
 .uv:
 	@uv -V || echo 'Please install uv: https://docs.astral.sh/uv/getting-started/installation/'
@@ -12,9 +16,10 @@ NUM_THREADS?=1
 
 .PHONY: install  ## Install the package, dependencies, and pre-commit for local development
 install: .uv
-	uv sync --frozen --group all --all-extras
+	uv sync --frozen --group all --all-packages --all-extras
 	uv pip install pre-commit
 	uv run pre-commit install --install-hooks
+	cd pydantic-core && make build-dev
 
 .PHONY: rebuild-lockfiles  ## Rebuild lockfiles from scratch, updating all dependencies
 rebuild-lockfiles: .uv
