@@ -14,6 +14,7 @@ python3 -V
 python3 -m pip install --user uv
 python3 -m uv sync --all-packages --python 3.12 --group docs --frozen
 python3 -m uv tool run maturin develop -m pydantic-core/Cargo.toml
+python3 -m uv pip list
 python3 -m uv run --no-sync python -c 'import docs.plugins.main'
 
 # Adding local symlinks gets nice source locations like
