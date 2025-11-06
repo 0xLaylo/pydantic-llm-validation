@@ -2283,7 +2283,7 @@ typechecking = [
 requires-dist = [
     { name = "annotated-types", specifier = ">=0.6.0" },
     { name = "email-validator", marker = "extra == 'email'", specifier = ">=2.0.0" },
-    { name = "pydantic-core", virtual = "pydantic-core" },
+    { name = "pydantic-core", editable = "pydantic-core" },
     { name = "typing-extensions", specifier = ">=4.14.1" },
     { name = "typing-inspection", specifier = ">=0.4.2" },
     { name = "tzdata", marker = "python_full_version >= '3.9' and sys_platform == 'win32' and extra == 'timezone'" },
@@ -2387,7 +2387,7 @@ typechecking = [
 
 [[package]]
 name = "pydantic-core"
-source = { virtual = "pydantic-core" }
+source = { editable = "pydantic-core" }
 dependencies = [
     { name = "typing-extensions" },
 ]

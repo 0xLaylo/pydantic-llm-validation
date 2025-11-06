@@ -31,7 +31,7 @@ jobs:
       - name: Install dependencies
         # Installing pip is required for the pre-commit action:
         run: |
-          uv sync --group linting --all-extras
+          uv sync --all-packages --group linting --all-extras
           uv pip install pip
       - uses: pre-commit/action@v3.0.1
         with:
@@ -52,7 +52,7 @@ jobs:
         # Unlike the docs build, we don't use mkdocs_material-insiders
         # Because the secret for accessing the library is not accessible from forks, but we still want to run
         # this job on public CI runs.
-        run: uv sync --group docs
+        run: uv sync --all-packages --group docs
 
       - run: uv run python -c 'import docs.plugins.main'
 
@@ -76,7 +76,7 @@ jobs:
           python-version: '3.12'
 
       - name: install deps
-        run: uv sync --group testing-extra
+        run: uv sync --all-packages --group testing-extra
 
       - name: Run tests
         run: uv run pytest --ignore=tests/mypy/ --ignore=tests/test_docs.py --memray
@@ -110,7 +110,7 @@ jobs:
           python-version: ${{ matrix.python-version }}
 
       - name: Install dependencies
-        run: uv sync --group testing-extra --all-extras
+        run: uv sync --all-packages --group testing-extra --all-extras
 
       - run: 'uv run python -c "import pydantic.version; print(pydantic.version.version_info())"'
 
@@ -162,7 +162,7 @@ jobs:
           python-version: '3.13'
 
       - name: Install dependencies
-        run: uv sync --group typechecking --all-extras
+        run: uv sync --all-packages --group typechecking --all-extras
 
       - run: mkdir coverage
 
@@ -190,7 +190,7 @@ jobs:
           python-version: '3.12'
 
       - name: Install dependencies
-        run: uv sync --group typechecking
+        run: uv sync --all-packages --group typechecking
 
       - name: Run typechecking integration tests (Pyright)
         run: make test-typechecking-pyright

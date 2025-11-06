@@ -1,5 +1,8 @@
 [build-system]
-requires = ['maturin>=1.9.4,<2']
+# for `editable-profile` option
+# TODO: get this merged and released in `maturin`, having the git dep here
+# forces a rust build to get maturin to be installed which is not ideal
+requires = ['maturin @ git+https://github.com/davidhewitt/maturin.git@editable-profile']
 build-backend = 'maturin'
 
 [project]
@@ -97,6 +100,9 @@ all = [
 python-source = "python"
 module-name = "pydantic_core._pydantic_core"
 bindings = 'pyo3'
+# when using `uv` to build `pydantic-core`, use the `dev` profile
+# can override by e.g. `make build-pgo` and then using `uv run --no-sync`
+editable-profile = 'dev'
 
 [tool.ruff]
 line-length = 120
@@ -160,7 +166,4 @@ reportUnnecessaryTypeIgnoreComment = true
 fix = ["create", "fix"]
 
 [tool.uv]
-# this ensures that `uv run` doesn't actually build the package; a `make`
-# command is needed to build
-package = false
 required-version = '>=0.7.2'
