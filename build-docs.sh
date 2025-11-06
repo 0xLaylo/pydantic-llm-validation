@@ -6,6 +6,9 @@
 set -e
 set -x
 
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+source $HOME/.cargo/env
+
 python3 -V
 
 python3 -m pip install --user uv
